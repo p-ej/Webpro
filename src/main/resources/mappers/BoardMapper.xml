@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.online.shop.dao.BoardDAO">
+
+
+	<!-- 게시글 목록 출력 -->
+	<select id="listpage" parameterType="int" resultType = "com.online.shop.vo.BoardVO">
+		<![CDATA[
+		select * from (select rownum rnum,SB_NUM,SB_NAME,SB_TITLE, SB_CONTENT, SB_STEP, SB_INDENT, SB_GROUP, SB_HIT, SB_DATE from 
+		(select * from SBOARD order by SB_GROUP desc,SB_STEP asc)) where rnum > = ${startrow} and rnum <= ${endrow}
+		]]>
+	</select>	
+
+	<!-- 게시글 총 개수 구하기 -->
+	<select id="listcount" resultType="int">
+		select count(*) from SBOARD
+	</select>
+	
+	<!-- 게시글 등록 -->
+	<insert id="insert">
+		insert into SBOARD values
+		(SBOARD_SEQ.nextval, #{SB_NAME}, #{SB_TITLE}, #{SB_CONTENT},
+		#{SB_DATE}, 0, SBOARD_SEQ.nextval, 0, 0)
+	</insert>
+	
+	<!-- 게시글 상세 조회 -->
+	<select id="detail" parameterType="int" resultType="com.online.shop.vo.BoardVO">
+		select * from SBOARD where SB_NUM = #{param1}
+	</select>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="upHit" parameterType="int">
+		update SBOARD set SB_HIT = SB_HIT + 1 where SB_NUM = #{param1}
+	</update>
+	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="com.online.shop.vo.BoardVO">
+		update SBOARD set SB_NAME=#{SB_NAME}, SB_TITLE=#{SB_TITLE}, SB_CONTENT=#{SB_CONTENT}
+		where SB_NUM=#{SB_NUM}
+	</update>
+	
+	<!--  게시글 삭제 --> 
+	<delete id="delete" parameterType="int">
+		delete from SBOARD where SB_NUM = #{param1}
+	</delete>
+	
+	<!-- 답변 폼  -->
+	<select id="replydetail" parameterType="int" resultType="com.online.shop.vo.BoardVO">
+		select * from SBOARD where SB_NUM = #{param1}
+	</select>
+	
+	<!-- 답변 등록 -->
+	<insert id = "reply">
+		insert into SBOARD (SB_NUM, SB_NAME, SB_TITLE, SB_CONTENT, SB_DATE,
+		 SB_HIT, SB_GROUP, SB_STEP, SB_INDENT) values (SBOARD_SEQ.nextval, 
+		 #{SB_NAME}, #{SB_TITLE}, #{SB_CONTENT}, #{SB_DATE}, 0, ${SB_GROUP}, 
+		 ${SB_STEP} + 1, ${SB_INDENT} + 1)
+	</insert>
+	
+	<!-- 답변 스텝 증가 -->
+	<update id ="replyShape" >
+		<![CDATA[
+		update SBOARD set SB_STEP = SB_STEP + 1 where SB_GROUP = 
+		#{SB_GROUP} and SB_STEP > #{SB_STEP}
+		]]>
+	</update>
+	
+</mapper>

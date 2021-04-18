@@ -18,21 +18,17 @@
   <link href="resources/css/shop.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="../templates/top.jsp" flush="boolean"/>
+	<jsp:include page="../templates/top.jsp" flush="boolean"/>
 
   <!-- Page Content -->
   <div class="container">
 
     <div class="row">
-
-      <div class="col-lg-3">
-
-        <h1 class="my-4">Shop Name</h1>
-        <div class="list-group">
-          <a href="./productlist" class="list-group-item">Category 1</a>
-        </div>
-
-      </div>
+    
+	  <!-- 카테고리 시작 -->
+		<jsp:include page="../templates/cate.jsp" flush="boolean"/>
+      <!-- 카테고리 끝 -->
+      
       <!-- /.col-lg-3 -->
 
       <div class="col-lg-9">
@@ -72,13 +68,11 @@
 </div>
 </div>
 </div>
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
-  </footer>
+
+
+	<!-- footer start -->
+	<jsp:include page="../templates/footer.jsp" flush="boolean"/>
+	<!-- footer end -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="resources/vendor/jquery/jquery.min.js"></script>
