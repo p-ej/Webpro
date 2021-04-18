@@ -32,8 +32,8 @@ public class MemberController {
 	public @ResponseBody String loginpro(@RequestParam("mid") String mid,@RequestParam("mpw") String mpw, HttpServletRequest request, MemberVO vo) throws Exception {
 		// ajax 데이터 받는 부분
 		MemberVO mem = new MemberVO();
-		mem.setS_id(mid); // 데이터 저장 ㅇㅋ?
-		mem.setS_pw(mpw);
+		mem.setS_ID(mid); // 데이터 저장 ㅇㅋ?
+		mem.setS_PW(mpw);
 		
 		MemberVO result = Service.login(mem); //이거 반환타입을  다시 VO로 바꿔야ㅕ함
 		System.out.println(result);
@@ -42,9 +42,9 @@ public class MemberController {
 //			return "false";
 //		}
 		if(result != null){
-			if(mem.getS_pw().equals(result.getS_pw())) {
+			if(mem.getS_PW().equals(result.getS_PW())) {
 				HttpSession session = request.getSession();
-				session.setAttribute("mid", mem.getS_id());
+				session.setAttribute("mid", mem.getS_ID());
 				return "true";
 			}
 		}
@@ -73,9 +73,10 @@ public class MemberController {
 	}
 		
 	// 회원 정보 출력
-	@RequestMapping("/memberInfo")
-	public String memberInfo(MemberVO mem,Model model) throws Exception {
-		model.addAttribute("member",Service.memberInfo(mem));
+	@RequestMapping(value="/memberInfo", method=RequestMethod.GET)
+	public String memberInfo(@RequestParam("uid") String uid,Model model) throws Exception {
+		MemberVO member = Service.memberInfo(uid);
+		model.addAttribute("member",member);
 		return "member/memberInfo";
 	}
 	
@@ -87,15 +88,16 @@ public class MemberController {
 	}
 	
 	// 아이디 중복체크 (수정요망)
-//	@RequestMapping("/idCheck")
-//	public @ResponseBody String idCheck(@RequestParam("mid") String mid,HttpServletRequest req,MemberVO vo) throws Exception{
-//		MemberVO mem= new MemberVO();
-//		mem.setS_id(mid);
-//		int result= Service.idCheck(mem);
-//		if(result == 1) {
-//			return "false";
-//			
-//		}
-//		return "true";
-//	}
-}
+	@RequestMapping(value="/idCheck",method=RequestMethod.POST)
+	   public @ResponseBody int idCheck(@RequestParam("s_id") String s_id,HttpServletRequest req,MemberVO vo) throws Exception{
+	      MemberVO mem= new MemberVO();
+	      mem.setS_ID(s_id);
+	      int result= Service.idCheck(mem);
+	      System.out.println(s_id);
+	      if(result == 1) {
+	         return 1;
+	         
+	      }
+	      return 0;
+	   }
+	}

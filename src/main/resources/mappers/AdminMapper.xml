@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.online.shop.dao.AdminDAO">
+	
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.online.shop.vo.CateVO">
+		select level, SC_NAME, SC_CODE, SC_CODEREF from SCATEGORY 
+		start with SC_CODEREF is null connect by prior 
+		SC_CODE = SC_CODEREF
+	</select>
+
+	<!-- 상품 등록 -->
+	<insert id="register">
+		insert into SPRODUCT (SP_NUM, SP_NAME, SC_CODE, SP_PRICE, SP_STOCK, SP_DES, SP_IMG, SP_THUMBIMG) 
+		values(SPRODUCT_SEQ.nextval, #{SP_NAME}, #{SC_CODE}, #{SP_PRICE}, #{SP_STOCK}, #{SP_DES}, #{SP_IMG}, #{SP_THUMBIMG})
+	</insert>
+
+	<!-- 상품 리스트 -->
+	<select id="productList" resultType="ProductViewVO">
+		 select
+		     g.SP_NUM, g.SP_NAME, g.SC_CODE, c.SC_CODEREF, c.SC_NAME, SP_PRICE, 
+		     SP_STOCK, SP_DES, SP_IMG, g.SP_IMG, g.SP_THUMBIMG
+		         from SPRODUCT g
+		             inner join SCATEGORY c
+		                 on g.SC_CODE = c.SC_CODE
+	</select>
+	
+	<!-- 상품 조회 
+	<select id="productDetail" parameterType="int" resultType="ProductVO">
+		select * from SPRODUCT where sp_num=#{SP_NUM}
+	</select>-->
+	
+	<!-- 상품 삭제 -->
+	<delete id="productDelete" parameterType="int">
+		delete SPRODUCT where sp_num= ${param1}
+	</delete>
+	
+	<!-- 상품조회 + 카테고리 조인 -->
+	<select id="productDetail" parameterType="int" resultType="com.online.shop.vo.ProductViewVO">
+	 select
+	     g.SP_NUM, g.SP_NAME, g.SC_CODE, c.SC_CODEREF, c.SC_NAME, SP_PRICE, SP_STOCK, SP_DES, SP_IMG
+	     , g.SP_IMG, g.SP_THUMBIMG
+	         from SPRODUCT g
+	             inner join SCATEGORY c
+	                 on g.SC_CODE = c.SC_CODE          
+	            where g.SP_NUM = ${param1}
+	</select>
+	
+	<!-- 상품 수정 -->
+	<update id="productModify">
+	 update SPRODUCT
+	     set
+	         SP_NAME = #{SP_NAME},
+	         SC_CODE = #{SC_CODE},
+	         SP_PRICE = #{SP_PRICE},
+	         SP_STOCK = #{SP_STOCK},
+	         SP_DES = #{SP_DES},
+	         SP_IMG = #{SP_IMG},
+	         SP_THUMBIMG = #{SP_THUMBIMG}
+	         
+	     where SP_NUM = ${SP_NUM}
+	</update>
+</mapper>

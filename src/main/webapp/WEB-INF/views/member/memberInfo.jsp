@@ -29,38 +29,38 @@
 		 <div class="form-group" id="id">
                     <label for="inputId" class="col-lg-2 control-label">아이디</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control onlyAlphabetAndNumber" value="${member.s_id}" id="s_id" name="s_id"placeholder="아이디" maxlength="30" readonly="readonly">
+                        <input type="text" class="form-control onlyAlphabetAndNumber" value="${member.S_ID}" name="S_ID" placeholder="아이디" maxlength="30" readonly="readonly">
                        
                     </div>
                 </div>
                 <div class="form-group" id="pw">
                     <label for="inputPassword" class="col-lg-2 control-label">패스워드</label>
                     <div class="col-lg-10">
-                        <input type="password" class="form-control" id="pw" name="s_pw"  value="${member.s_pw}" placeholder="패스워드" maxlength="30">
+                        <input type="password" class="form-control"  name="S_PW"  value="${member.S_PW}" placeholder="패스워드" maxlength="30">
                     </div>
                 </div>
                 <div class="form-group" id="pw2">
                     <label for="inputPasswordCheck" class="col-lg-2 control-label">패스워드 확인</label>
                     <div class="col-lg-10">
-                        <input type="password" class="form-control" id="pw2" value="${member.s_pw}" placeholder="패스워드 확인" maxlength="30">
+                        <input type="password" class="form-control"  value="${member.S_PW}" placeholder="패스워드 확인" maxlength="30">
                     </div>
                 </div>
                 <div class="form-group" id="name">
                     <label for="inputName" class="col-lg-2 control-label">이름</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control onlyHangul" id="name" name="s_name" value="${member.s_name}" placeholder="한글만 입력 가능합니다." maxlength="15">
+                        <input type="text" class="form-control onlyHangul"  name="S_NAME" value="${member.S_NAME}" placeholder="한글만 입력 가능합니다." maxlength="15">
                     </div>
                 </div>
                 <div class="form-group" id="email">
                     <label for="inputEmail" class="col-lg-2 control-label">이메일</label>
                     <div class="col-lg-10">
-                        <input type="email" class="form-control" value="${member.s_email}" id="email" name="s_email" placeholder="이메일" maxlength="40">
+                        <input type="email" class="form-control" value="${member.S_EMAIL}" name="S_EMAIL" placeholder="이메일" maxlength="40">
                     </div>
                 </div>
                 <div class="form-group" id="phone">
                     <label for="inputPhoneNumber" class="col-lg-2 control-label" >휴대폰 번호</label>
                     <div class="col-lg-10">
-                        <input type="tel" class="form-control onlyNumber" value="${member.s_phone}" id="phone" name="s_phone" placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11">
+                        <input type="tel" class="form-control onlyNumber" value="${member.S_PHONE}"name="S_PHONE" placeholder="-를 제외하고 숫자만 입력하세요." maxlength="11">
                     </div>
                 </div>
                   

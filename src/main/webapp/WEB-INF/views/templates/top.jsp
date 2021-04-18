@@ -25,7 +25,7 @@
 					<!-- 비로그인 시 로그인창이 뜨도록(장바구니) -->
 					<c:if test="${mid ne 'admin' }">
 						<li class="nav-item">
-							<a class="nav-link" href="./loginView">Cart</a>
+							<a class="nav-link" href="#">Cart</a>
 						</li>					
 					</c:if>					
 
@@ -51,7 +51,7 @@
 								</c:when>
 								
 								<c:when test="${mid ne null }">
-									<a class="dropdown-item" href="./memberInfo?s_id=${mid}">My Page</a> 
+									<a class="dropdown-item" href="./memberInfo?uid=${mid}">My Page</a> 
 									<a class="dropdown-item" href="./logout">로그아웃</a>								
 								</c:when>
 							</c:choose>

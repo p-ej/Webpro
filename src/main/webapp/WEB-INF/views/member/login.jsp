@@ -27,18 +27,18 @@
 		 <form class="form-horizontal" >
 		 <div class="form-group" id="id">
                     <div class="col-lg-5">
-                        <input type="text" class="form-control onlyAlphabetAndNumber" id="s_id" name="s_id"placeholder="아이디" maxlength="30">
+                        <input type="text" class="form-control onlyAlphabetAndNumber" id="S_ID" name="S_ID"placeholder="아이디" maxlength="30">
                     </div>
                 </div>
                 <div class="form-group" id="pw">
                     <div class="col-lg-5">
-                        <input type="password" class="form-control" id="s_pw" name="s_pw"  placeholder="패스워드" maxlength="30">
+                        <input type="password" class="form-control" id="S_PW" name="S_PW"  placeholder="패스워드" maxlength="30">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                     	<a href="javascript:;" onclick="userCheck()" class="btn btn-primary" >로그인</a>
-                        <button type="submit" class="btn btn-primary">Log in</button>
+                        <a href="./joinView" class="btn btn-primary">회원가입</a>
                     </div>
                 </div>
                 </form>
@@ -48,8 +48,8 @@
 	<!-- ajax 데이터 전송 -->
 	<script>
 	   function userCheck(){
-	      var mid = $('#s_id').val();
-	      var mpw = $('#s_pw').val();
+	      var mid = $('#S_ID').val();
+	      var mpw = $('#S_PW').val();
 	      $.ajax({
 	         type : "POST",
 	         url : './loginpro',

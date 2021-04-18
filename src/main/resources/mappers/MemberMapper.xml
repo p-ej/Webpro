@@ -2,37 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.online.shop.dao.MemberDAO">
 
-<select id="memberInfo" parameterType="MemberVO" resultType="MemberVO">
-SELECT * from SMEMBER 
-where s_id=#{s_id}
+<!-- 회원정보 -->
+<select id="memberInfo" parameterType="String" resultType="com.online.shop.vo.MemberVO">
+SELECT * from SMEMBER where S_ID = #{param1}
 </select>
 
-<select id="join" parameterType="MemberVO" resultType="MemberVO">
+<!-- 회원가입 -->
+<select id="join" parameterType="com.online.shop.vo.MemberVO" resultType="com.online.shop.vo.MemberVO">
 INSERT INTO SMEMBER
 values(
-#{s_id},
-#{s_pw},
-#{s_name},
-#{s_phone},
-#{s_email},
+#{S_ID},
+#{S_PW},
+#{S_NAME},
+#{S_PHONE},
+#{S_EMAIL},
 0,
 0
 )
 </select>
 
+	<!-- 로그인 체크 -->
    <select id="login" parameterType="com.online.shop.vo.MemberVO" resultType="com.online.shop.vo.MemberVO">
-      select s_id,s_pw from SMEMBER where s_id = #{s_id} 
+      select S_ID, S_PW from SMEMBER where S_ID = #{S_ID} 
    </select>
-   <select id="idChk" resultType="int">
-    SELECT count(*) from SMEMBER where s_id=#{s_id}
-   </select>
-   <update id="memberModify">
-   update SMEMBER set 
-   s_pw=#{s_pw},
-   s_name=#{s_name},
-   s_phone=#{s_phone},
-   s_email=#{s_email}
-   where s_id=#{s_id}
+
    
+   <!-- 회원수정 -->
+   <update id="memberModify" parameterType="MemberVO" >
+   update SMEMBER set 
+   S_PW=#{S_PW},
+   S_NAME=#{S_NAME},
+   S_PHONE=#{S_PHONE},
+   S_EMAIL=#{S_EMAIL}
+   where S_ID=#{S_ID}
    </update>
+   
+   <!-- 아이디 중복체크 -->
+   <select id="idChk" parameterType="com.online.shop.vo.MemberVO" resultType="int">
+    SELECT count(*) from SMEMBER where S_ID=#{S_ID}
+   </select>
 </mapper>

@@ -15,3 +15,26 @@ body {
 	padding: 15px 0;
 	text-align: center;
 }
+
+#container_box table td {width:100px;}
+#container_box table th {font-size:20px; font-weight:bold; text-align:center; padding:10px; border-bottom:2px solid #666;}
+#container_box table td {padding:10px; text-align:center;}
+#container_box table img {width:150px; height:auto;}
+
+.inputArea {margin:10px 0;}
+select {width:100px;}
+label { display:inline-block; width:90px; padding:5px;}
+label[for='SP_DES'] { display:block;}
+input {width:150px;}
+textarea#SP_DES {width:400px; height:180px;}
+
+.select_img {width:500px; margin:20px 0;}
+
+.oriImg {width:500px; height:auto;}
+.thumbImg {}
+
+table.tr{
+	padding:1px 0;
+}
+
+.SP_DES img {max-width:600px; height:auto;}

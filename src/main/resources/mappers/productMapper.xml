@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.online.shop.dao.ProductDAO">
+
+<!-- 1차 -->
+<select id="list1" parameterType="int" resultType="ProductViewVO">
+select
+    g.SP_NUM, g.SP_NAME, g.SC_CODE, c.SC_CODEREF, c.SC_NAME, SP_PRICE, SP_STOCK, 
+    SP_DES, SP_IMG, g.SP_IMG, g.SP_THUMBIMG
+        from SPRODUCT g
+            inner join SCATEGORY c
+                on g.SC_CODE = c.SC_CODE           
+            where g.SC_CODE = ${param1}
+            or c.SC_CODEREF = ${param2}
+</select>
+
+<!-- 2차 -->
+<select id="list2" parameterType="int" resultType="ProductViewVO">
+select
+    g.SP_NUM, g.SP_NAME, g.SC_CODE, c.SC_CODEREF, c.SC_NAME, SP_PRICE, SP_STOCK, 
+    SP_DES, SP_IMG, g.SP_IMG, g.SP_THUMBIMG
+        from SPRODUCT g
+            inner join SCATEGORY c
+                on g.SC_CODE = c.SC_CODE           
+            where g.SC_CODE = ${param1}
+</select>
+
+<!-- 사용자 상품 조회 -->
+	<!-- 상품조회 + 카테고리 조인 -->
+	<select id="productdetail" parameterType="int" resultType="com.online.shop.vo.ProductViewVO">
+	 select
+	     g.SP_NUM, g.SP_NAME, g.SC_CODE, c.SC_CODEREF, c.SC_NAME, SP_PRICE, SP_STOCK, SP_DES, SP_IMG
+	     , g.SP_IMG, g.SP_THUMBIMG
+	         from SPRODUCT g
+	             inner join SCATEGORY c
+	                 on g.SC_CODE = c.SC_CODE          
+	            where g.SP_NUM = ${param1}
+	</select>
+	
+	<!-- 장바구니 -->
+	<insert id="addCart" parameterType="com.online.shop.vo.CartVO" >
+ 		insert into s_cart (S_CNUM, S_ID, SP_NUM, S_CSTOCK)
+     	values (s_cart_seq.nextval, #{S_ID}, ${SP_NUM}, ${S_CSTOCK})
+	</insert>
+
+</mapper>

@@ -18,11 +18,10 @@
 		
 		<!-- 카테고리 2 -->		
 		<li class="nav-item dropdown">
-			<a class="dropdown-toggle list-group-item" href="#" data-toggle="dropdown">
-				상품관리</a>
+			<a class="dropdown-toggle list-group-item" href="#" data-toggle="dropdown">상품관리</a>
 				<div class="dropdown-menu">
- 					<a class="dropdown-item" href="./productadd">상품등록</a>
-					<a class="dropdown-item" href="#">상품목록</a> 
+ 					<a class="dropdown-item" href="./adminproductadd">상품등록</a>
+					<a class="dropdown-item" href="./adminproductlist">상품목록</a> 
 				</div>
 		</li>
 		

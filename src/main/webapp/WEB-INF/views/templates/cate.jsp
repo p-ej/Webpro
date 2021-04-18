@@ -16,6 +16,7 @@
 			<a class="dropdown-toggle list-group-item" href="#" data-toggle="dropdown">
 				상의</a>
 				<div class="dropdown-menu">
+					<a class="dropdown-item" href="./productlist?cate=100&lev=1">상의 전체</a> 
 					<a class="dropdown-item" href="./productlist?cate=101&lev=2">티셔츠</a> 
 					<a class="dropdown-item" href="./productlist?cate=102&lev=2">아우터</a> 
 				</div>
@@ -26,6 +27,7 @@
 			<a class="dropdown-toggle list-group-item" href="#" data-toggle="dropdown">
 				하의</a>
 				<div class="dropdown-menu">
+					<a class="dropdown-item" href="./productlist?cate=200&lev=1">하의 전체</a>
 					<a class="dropdown-item" href="./productlist?cate=201&lev=2">와이드</a> 
 					<a class="dropdown-item" href="./productlist?cate=202&lev=2">슬렉스</a> 
 				</div>
