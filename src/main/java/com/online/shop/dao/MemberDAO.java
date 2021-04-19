@@ -12,12 +12,12 @@ public interface MemberDAO {
 	// 로그인 체크
 	MemberVO login(MemberVO mvo) throws Exception;
 
-	//	public String id(MemberVO membervo)throws Exception;
     int idChk(MemberVO mvo)throws Exception;
     
     // 회원 정보
     MemberVO memberInfo(String id)throws Exception;
     
+    // 사용자 회원수정
     public void memberModify(MemberVO mvo) throws Exception;
     
 }

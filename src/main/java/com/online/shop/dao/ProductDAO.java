@@ -24,4 +24,10 @@ public interface ProductDAO {
 	
 	// 카트 담기
 	void addCart(CartVO cart) throws Exception;
+	
+	// 카트 리스트
+	List<CartVO> cartList(String id) throws Exception;
+	
+	// 카트 삭제
+	void deleteCart(CartVO cart) throws Exception;
 }

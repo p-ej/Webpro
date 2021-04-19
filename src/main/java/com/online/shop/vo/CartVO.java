@@ -14,4 +14,9 @@ public class CartVO {
 	private int SP_NUM;
 	private int S_CSTOCK;
 	private Date addDate;
+	
+	private int num;
+	private String SP_NAME;
+	private int SP_PRICE;
+	private String SP_THUMBIMG;
 }

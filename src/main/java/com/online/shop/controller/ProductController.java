@@ -49,14 +49,52 @@ public class ProductController {
 	@RequestMapping(value = "/addCart", method = RequestMethod.POST)
 	public @ResponseBody int addCart(CartVO cart, HttpSession session) throws Exception {
 		int result = 0;
-		 String member = (String)session.getAttribute("mid");
+		String member = (String)session.getAttribute("mid");
 		System.out.println(member);
 		if(member != null) {
-			
+
 			cart.setS_ID(member);
 			service.addCart(cart);
 			result = 1;
 		}
 		return result;
+	}
+
+	// 카트 목록
+	@RequestMapping(value = "/cartList", method = RequestMethod.GET)
+	public String getCartList(HttpSession session, Model model) throws Exception {
+
+		String userId = (String)session.getAttribute("mid");
+
+		List<CartVO> cartList = service.cartList(userId);
+
+		model.addAttribute("cartList", cartList);
+
+		return "product/cartList";
+	} 
+
+	// 카트 삭제
+	@ResponseBody
+	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+	public int deleteCart(HttpSession session,
+			@RequestParam(value = "chbox[]") List<String> chArr, CartVO cart) throws Exception {
+
+		String member = (String)session.getAttribute("mid");
+
+		int result = 0;
+		int cartNum = 0;
+
+
+		if(member != null) {
+			cart.setS_ID(member);
+
+			for(String i : chArr) {   
+				cartNum = Integer.parseInt(i);
+				cart.setS_CNUM(cartNum);
+				service.deleteCart(cart);
+			}   
+			result = 1;
+		}  
+		return result;  
 	}
 }

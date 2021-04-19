@@ -37,10 +37,29 @@ select
 	            where g.SP_NUM = ${param1}
 	</select>
 	
-	<!-- 장바구니 -->
+	<!-- 장바구니 담기 -->
 	<insert id="addCart" parameterType="com.online.shop.vo.CartVO" >
  		insert into s_cart (S_CNUM, S_ID, SP_NUM, S_CSTOCK)
      	values (s_cart_seq.nextval, #{S_ID}, ${SP_NUM}, ${S_CSTOCK})
 	</insert>
 
+	<!-- 카트 리스트 -->
+	<select id="cartList" parameterType="String" resultType="com.online.shop.vo.CartVO">
+	 select
+	     row_number() over(order by c.S_CNUM desc) as num,
+	     c.S_CNUM, c.S_ID, c.SP_NUM, c.S_CSTOCK, c.addDate,
+	     g.SP_NAME, g.SP_PRICE, g.SP_THUMBIMG
+	 from s_cart c
+	     inner join SPRODUCT g
+	         on c.SP_NUM = g.SP_NUM   
+	     where c.S_ID = #{param1}
+	</select>
+	
+	<!-- 카트 삭제 -->
+	<delete id="deleteCart">
+	 delete s_cart
+	     where S_CNUM = #{S_CNUM}
+	         and S_ID = #{S_ID}
+	</delete>
+	
 </mapper>

@@ -25,7 +25,7 @@
 					<!-- 비로그인 시 로그인창이 뜨도록(장바구니) -->
 					<c:if test="${mid ne 'admin' }">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Cart</a>
+							<a class="nav-link" href="./cartList">Cart</a>
 						</li>					
 					</c:if>					
 

@@ -61,4 +61,16 @@
 	         
 	     where SP_NUM = ${SP_NUM}
 	</update>
+	
+	<!-- 회원 목록 -->
+	<select id="memberlist" resultType="com.online.shop.vo.MemberVO">
+		select * from SMEMBER
+	</select>
+	
+	<!-- 회원삭제 -->
+	<delete id="memberdelete" parameterType="String">
+		delete SMEMBER where S_ID= #{param1}
+	</delete>
+	
+	
 </mapper>

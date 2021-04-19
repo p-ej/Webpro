@@ -14,11 +14,11 @@ public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	MemberDAO memDAO;
+	
+	
 	@Override
 	public void join(MemberVO vo) throws Exception {
-		// TODO Auto-generated method stub
 		memDAO.join(vo);
-
 
 	}
 	@Override
@@ -45,5 +45,6 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return 0;
 	}
+
 
 }

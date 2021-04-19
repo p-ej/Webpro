@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.online.shop.dao.AdminDAO;
 import com.online.shop.vo.CateVO;
+import com.online.shop.vo.MemberVO;
 import com.online.shop.vo.ProductVO;
 import com.online.shop.vo.ProductViewVO;
 
@@ -49,6 +50,18 @@ public class AdminServiceImpl implements AdminService {
 	public void productModify(ProductVO vo) throws Exception {
 		dao.productModify(vo);
 	}
+	
+	@Override
+	public List<MemberVO> memberlist() throws Exception {
+		return dao.memberlist();
+	}
+
+	@Override
+	public void memberdelete(String uid) throws Exception {
+		dao.memberdelete(uid);
+	}
+	
+	
 	
 	
 }

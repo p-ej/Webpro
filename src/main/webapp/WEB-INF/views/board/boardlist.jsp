@@ -19,8 +19,6 @@
 
 <body>
 	<jsp:include page="../templates/top.jsp" flush="boolean"/>
-
-
 	
 	<!-- Page Content -->
 	<div class="container">
@@ -36,6 +34,7 @@
 				<header>
 					<h2>QNA게시판</h2>
 				</header>
+
 				<table class="table table-horver" border="1">
 					<tr align="center">
 						<td>번호</td>
@@ -91,9 +90,31 @@
 						</c:choose>
 						</td>
 					</tr>
-					
-
 				</table>
+				
+				<form name="form1" method="post" action="./boardlist">
+				<select name="search_option">
+				        <option value="SB_NAME"
+						<c:if test="${search_option == 'SB_NAME'}">selected</c:if>
+						   >작성자</option>
+						
+						        <option value="SB_TITLE" 
+						<c:if test="${search_option == 'SB_TITLE'}">selected</c:if>
+						        >제목</option>
+						
+						        <option value="SB_CONTENT" 
+						<c:if test="${search_option == 'SB_CONTENT'}">selected</c:if>
+						        >내용</option>
+						
+						        <option value="ALL" 
+						<c:if test="${search_option == 'ALL'}">selected</c:if>
+						        >작성자+내용+제목</option>
+						
+						</select>
+						<input name="keyword" value="${keyword}">
+						<input type="submit" value="조회">
+				</form>
+				
 					<c:choose>
 						<c:when test="${mid eq null}">
 						</c:when>

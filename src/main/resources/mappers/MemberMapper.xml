@@ -3,9 +3,9 @@
 <mapper namespace="com.online.shop.dao.MemberDAO">
 
 <!-- 회원정보 -->
-<select id="memberInfo" parameterType="String" resultType="com.online.shop.vo.MemberVO">
-SELECT * from SMEMBER where S_ID = #{param1}
-</select>
+	<select id="memberInfo" parameterType="com.online.shop.vo.MemberVO" resultType="com.online.shop.vo.MemberVO">
+	SELECT * from SMEMBER where S_ID = #{S_ID}
+	</select>
 
 <!-- 회원가입 -->
 <select id="join" parameterType="com.online.shop.vo.MemberVO" resultType="com.online.shop.vo.MemberVO">

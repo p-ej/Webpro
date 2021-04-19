@@ -194,5 +194,21 @@ public class AdminController {
 
 		return; 
 	}
+	
+	/////////////////// 회원관리 부분
+	// 회원 목록 출력
+	@RequestMapping(value="/adminmemberlist")
+	public String memberlist(Model model) throws Exception {
+		model.addAttribute("list",service.memberlist());
+		return "admin/adminmemberlist";
+	}
+	
+	// 회원 삭제
+	@RequestMapping(value="/memberdelete")
+	public String delete(@RequestParam("uid") String uid) throws Exception {
+		service.memberdelete(uid);
+		return "redirect:/adminmemberlist";
+		
+	}
 }
 

@@ -13,7 +13,7 @@
 		
 		<!-- 카테고리 1 -->
 		<li class="nav-item">
-			<a class="list-group-item" href="#">회원목록</a> 
+			<a class="list-group-item" href="./adminmemberlist">회원목록</a> 
 		</li>
 		
 		<!-- 카테고리 2 -->		

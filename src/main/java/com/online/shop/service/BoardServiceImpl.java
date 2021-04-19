@@ -79,5 +79,7 @@ public class BoardServiceImpl implements BoardService {
 	public void replyShape(BoardVO boardVO) throws Exception {
 		dao.replyShape(boardVO);
 	}
+
+
 	
 }

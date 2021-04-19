@@ -38,4 +38,5 @@ public interface BoardService {
 	
 	// 답변 등록 시 카운트 증가 
 	void replyShape(BoardVO boardVO) throws Exception;
+
 }

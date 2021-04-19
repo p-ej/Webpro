@@ -1,5 +1,7 @@
 package com.online.shop.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,12 +30,16 @@ public class BoardController {
 	
 	// 게시글 출력
 	@RequestMapping(value = "/boardlist")
-	public String list(HttpServletRequest request, Model model) throws Exception {
+	public String list(HttpServletRequest request,
+			@RequestParam(defaultValue="SB_NAME") String search_option,
+			@RequestParam(defaultValue="") String keyword,
+			Model model) throws Exception {
 		List<?> boardlist=new ArrayList<>();
 		
 		pageVO pg = new pageVO();
 		int page = 1; // 페이징 최소 
-		int limit=10; // 페이징 최대
+		int limit=10; // 페이징 최대		
+		
 		
 		if(request.getParameter("page") != null){ // 1.2.3.4.5 문자열 url ?page=2 2 '2'
 			page=Integer.parseInt(request.getParameter("page")); // '2' -> 2
@@ -40,7 +47,8 @@ public class BoardController {
 		
 		pg.setStartrow((page-1)*10+1); //읽기 시작할 row 번호.
 		pg.setEndrow(pg.getStartrow()+limit-1); //읽을 마지막 row 번호.
-		
+		pg.setKeyword(keyword);
+		pg.setSearch_option(search_option);
 		int listcount= service.listcount(); // DAO와 디비 접속 총 리스트 수를 받아옴.
 		boardlist = service.listpage(pg); // DAO와 디비 접속 리스트를 받아옴.
 
@@ -59,6 +67,9 @@ public class BoardController {
 		model.addAttribute("endpage", endpage);     //현재 페이지에 표시할 끝 페이지 수.
 		model.addAttribute("listcount",listcount); //글 수.
 		model.addAttribute("list", boardlist); // 글 출력 
+		
+		model.addAttribute("search_option", search_option);
+		model.addAttribute("keyword", keyword);
 		return "board/boardlist";
 	}
 	
@@ -122,5 +133,7 @@ public class BoardController {
 		service.reply(boardVO);
 		return "redirect:/boardlist";
 	}
+	
+
 	
 }

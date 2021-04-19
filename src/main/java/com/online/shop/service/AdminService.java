@@ -3,6 +3,7 @@ package com.online.shop.service;
 import java.util.List;
 
 import com.online.shop.vo.CateVO;
+import com.online.shop.vo.MemberVO;
 import com.online.shop.vo.ProductVO;
 import com.online.shop.vo.ProductViewVO;
 
@@ -26,4 +27,9 @@ public interface AdminService {
 	// 상품 수정
 	void productModify(ProductVO vo) throws Exception;
 	
+	// 회원 목록 출력
+	List<MemberVO> memberlist() throws Exception;
+	
+	// 회원 삭제
+	void memberdelete(String uid) throws Exception;
 }

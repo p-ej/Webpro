@@ -97,7 +97,7 @@
 				 </script>
 				 
 				 <!-- 카트 담기 -->
-				<button type="button" class="addCart_btn">카트에 담기</button>
+				<button type="button" class="addCart_btn btn btn-primary">카트에 담기</button>
 				 <script>
 				  $(".addCart_btn").click(function(){
 				   var SP_NUM = $("#SP_NUM").val();

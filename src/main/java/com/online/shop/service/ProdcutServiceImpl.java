@@ -42,4 +42,16 @@ public class ProdcutServiceImpl implements ProductService {
 		dao.addCart(cart);
 	}
 
+
+	@Override
+	public List<CartVO> cartList(String id) throws Exception {
+		return dao.cartList(id);
+	}
+
+
+	@Override
+	public void deleteCart(CartVO cart) throws Exception {
+		dao.deleteCart(cart);
+	}
+
 }

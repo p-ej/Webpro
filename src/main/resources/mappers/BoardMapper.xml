@@ -4,14 +4,78 @@
 <mapper namespace="com.online.shop.dao.BoardDAO">
 
 
-	<!-- 게시글 목록 출력 -->
-	<select id="listpage" parameterType="int" resultType = "com.online.shop.vo.BoardVO">
+	<!-- 게시글 목록 출력(동적쿼리1) -->
+	<select id="listpage1" parameterType="com.online.shop.vo.pageVO" resultType = "com.online.shop.vo.BoardVO">
 		<![CDATA[
 		select * from (select rownum rnum,SB_NUM,SB_NAME,SB_TITLE, SB_CONTENT, SB_STEP, SB_INDENT, SB_GROUP, SB_HIT, SB_DATE from 
-		(select * from SBOARD order by SB_GROUP desc,SB_STEP asc)) where rnum > = ${startrow} and rnum <= ${endrow}
+		(select * from SBOARD 
+		
+		<choose>
+            <when test="search_option == 'ALL' ">
+                
+                where  
+                      SB_NAME like '%'|| #{keyword}||'%'
+                      or SB_CONTENT like '%' || #{keyword}||'%'
+                      or SB_TITLE like '%'|| #{keyword}||'%'   
+            </when>
+            
+            <otherwise>
+               
+                where ${search_option} like '%'||#{keyword}||'%'
+           
+            </otherwise>
+        </choose>
+			
+		order by SB_GROUP desc,SB_STEP asc)) where rnum > = ${startrow} and rnum <= ${endrow}
 		]]>
 	</select>	
-
+	
+	
+	<!-- 게시글 목록 출력 (동적쿼리)-->
+	<select id="listpage" parameterType="com.online.shop.vo.pageVO" resultType = "com.online.shop.vo.BoardVO">
+		
+			<include refid="paging_header" /> 
+			
+			select * from SBOARD 
+			
+			<include refid="search" /> 
+				
+			order by SB_GROUP desc,SB_STEP asc
+			
+			<include refid="paging_footer" /> 
+		
+	</select>	
+		
+	<sql id ="paging_header">
+		<![CDATA[
+			select * from (select rownum rnum,SB_NUM,SB_NAME,SB_TITLE, SB_CONTENT, SB_STEP, SB_INDENT, SB_GROUP, SB_HIT, SB_DATE from 
+				(
+				]]>
+		</sql>
+		
+		<sql id ="paging_footer">
+			<![CDATA[)) where rnum > = ${startrow} and rnum <= ${endrow}]]>
+		</sql>
+		
+		<sql id ="search">
+				<choose>
+	            <when test="search_option == 'ALL' ">
+	                
+	                where  
+	                      SB_NAME like '%'|| #{keyword}||'%'
+	                      or SB_CONTENT like '%' || #{keyword}||'%'
+	                      or SB_TITLE like '%'|| #{keyword}||'%'   
+	            </when>
+	            
+	            <otherwise>
+	               
+	                where ${search_option} like '%'||#{keyword}||'%'
+	           
+	            </otherwise>
+	        </choose>
+		</sql>
+	
+	
 	<!-- 게시글 총 개수 구하기 -->
 	<select id="listcount" resultType="int">
 		select count(*) from SBOARD
@@ -65,5 +129,10 @@
 		#{SB_GROUP} and SB_STEP > #{SB_STEP}
 		]]>
 	</update>
+	
+	<!-- 게시글 검색 -->
+	<select id="search" parameterType="String" resultType="com.online.shop.vo.BoardVO">
+		<![CDATA[select * from SBOARD where SB_TITLE LIKE '%${param1}%']]>
+	</select>
 	
 </mapper>

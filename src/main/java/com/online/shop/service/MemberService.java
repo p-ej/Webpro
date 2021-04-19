@@ -5,7 +5,6 @@ import com.online.shop.vo.MemberVO;
 public interface MemberService {
 	
 	public void join(MemberVO vo) throws Exception;
-//	public MemberVO login(MemberVO vo)throws Exception;
 	
 	// 로그인 체크
 	MemberVO login(MemberVO mvo) throws Exception;
@@ -18,5 +17,6 @@ public interface MemberService {
     
     // 회원수정
     public void memberModify(MemberVO vo)throws Exception;
+
     
 }
