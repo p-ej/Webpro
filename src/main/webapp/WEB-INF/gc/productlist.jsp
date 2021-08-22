@@ -23,7 +23,7 @@
 
 <body>
 
-<jsp:include page="../templates/top.jsp" flush="boolean"/>
+<%-- <jsp:include page="../templates/top.jsp" flush="boolean"/> --%>
 
   <!-- Page Content -->
   <div class="container">
@@ -31,7 +31,7 @@
     <div class="row">
 
 	  <!-- 카테고리 시작 -->
-		<jsp:include page="../templates/cate.jsp" flush="boolean"/>
+		<%-- <jsp:include page="../templates/cate.jsp" flush="boolean"/> --%>
       <!-- 카테고리 끝 -->
       
       <!-- /.col-lg-3 -->
@@ -176,7 +176,7 @@
   <!-- /.container -->
 
 	<!-- footer start -->
-	<jsp:include page="../templates/footer.jsp" flush="boolean"/>
+	<%-- <jsp:include page="../templates/footer.jsp" flush="boolean"/> --%>
 	<!-- footer end -->
 
   <!-- Bootstrap core JavaScript -->
