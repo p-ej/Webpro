@@ -27,10 +27,15 @@
 		
 		<!-- 카테고리 3 -->
 		<li class="nav-item">
-			<a class="list-group-item" href="#">주문관리</a>
+			<a class="list-group-item" href="./adminorderList">주문목록</a>
 		</li>
 		
 		<!-- 카테고리 4 -->		
+		<li class="nav-item">
+			<a class="list-group-item" href="./allReply">상품소감</a>
+		</li>
+		
+		<!-- 카테고리 5 -->		
 		<li class="nav-item">
 			<a class="list-group-item" href="#">매출관리</a>
 		</li>

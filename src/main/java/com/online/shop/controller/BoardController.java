@@ -133,7 +133,4 @@ public class BoardController {
 		service.reply(boardVO);
 		return "redirect:/boardlist";
 	}
-	
-
-	
 }

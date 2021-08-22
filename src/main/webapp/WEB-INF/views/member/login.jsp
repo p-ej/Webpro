@@ -45,26 +45,8 @@
 	</div>
 	<!-- 중앙 들어갈 내용 끝 -->
 	
-	<!-- ajax 데이터 전송 -->
-	<script>
-	   function userCheck(){
-	      var mid = $('#S_ID').val();
-	      var mpw = $('#S_PW').val();
-	      $.ajax({
-	         type : "POST",
-	         url : './loginpro',
-	         data : {mid:mid, mpw:mpw},   
-	         success : function(data){
-	            if(data == "false"){
-	               alert('정보가 맞지 않습니다. 아이디와 비밀번호를 다시 입력.');
-	            }
-	            else{
-	               location.href="./main";
-	            }
-	         }
-	      });
-	   }
-	</script>
+	<!-- ajax 데이터 전송 로그인 체크 스크립트-->
+	<script src="resources/js/member/login.js"></script>
 
 	<!-- footer start -->
 	<jsp:include page="../templates/footer.jsp" flush="boolean"/>

@@ -23,8 +23,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.online.shop.service.AdminService;
 import com.online.shop.utils.UploadFileUtils;
 import com.online.shop.vo.CateVO;
+import com.online.shop.vo.OrderListVO;
+import com.online.shop.vo.OrderVO;
 import com.online.shop.vo.ProductVO;
 import com.online.shop.vo.ProductViewVO;
+import com.online.shop.vo.ReplyListVO;
 
 import net.sf.json.JSONArray;
 
@@ -209,6 +212,71 @@ public class AdminController {
 		service.memberdelete(uid);
 		return "redirect:/adminmemberlist";
 		
+	}
+	
+	/////////////////// 주문 부분
+	// 주문 목록
+	@RequestMapping(value = "/adminorderList", method = RequestMethod.GET)
+	public String adminOrderList(Model model) throws Exception {
+	   
+	 List<OrderVO> orderList = service.adminorderList();
+	 
+	 model.addAttribute("orderList", orderList);
+	 
+	 return "admin/adminorderList";
+	}
+
+	// 주문 상세 목록
+	@RequestMapping(value = "/adminorderView", method = RequestMethod.GET)
+	public String adminOrderView(@RequestParam("num") String orderId,
+	      OrderVO order, Model model) throws Exception {
+	 
+	 order.setOrderId(orderId);  
+	 List<OrderListVO> orderView = service.adminorderView(order);
+	 
+	 model.addAttribute("orderView", orderView);
+	 
+	 return "admin/adminorderView";
+	}
+	
+	// 주문 상세 목록 - 상태 변경
+	@RequestMapping(value = "/delivery", method = RequestMethod.POST)
+	public String delivery(OrderVO order) throws Exception {
+	   
+	service.delivery(order);
+	
+	// 상품 수량 변경 STOCK
+	List<OrderListVO> orderView = service.adminorderView(order); 
+
+	ProductVO goods = new ProductVO();
+	  
+		for(OrderListVO i : orderView) {
+		 goods.setSP_NUM(i.getSP_NUM());
+		 goods.setSP_STOCK(String.valueOf(i.getSP_STOCK()));
+		 service.changeStock(goods);
+		}
+
+	 return "redirect:/adminorderView?num=" + order.getOrderId();
+	}
+	
+	// 모든 소감(댓글)
+	@RequestMapping(value = "/allReply", method = RequestMethod.GET)
+	public String getAllReply(Model model) throws Exception {
+	   
+	 List<ReplyListVO> reply = service.allReply();
+	 
+	 model.addAttribute("reply", reply);
+	 return "admin/adminallReply";
+	}
+	
+	// 소감 삭제
+	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
+	public String deleteReply(HttpServletRequest request) throws Exception {
+		int reqNum = Integer.parseInt(request.getParameter("S_reqNum"));
+		System.out.println("소감 삭제 값 : "+reqNum);
+		service.deleteReply(reqNum);
+		
+		return "redirect:/allReply";
 	}
 }
 

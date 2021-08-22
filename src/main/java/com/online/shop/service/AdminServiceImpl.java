@@ -9,8 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.online.shop.dao.AdminDAO;
 import com.online.shop.vo.CateVO;
 import com.online.shop.vo.MemberVO;
+import com.online.shop.vo.OrderListVO;
+import com.online.shop.vo.OrderVO;
 import com.online.shop.vo.ProductVO;
 import com.online.shop.vo.ProductViewVO;
+import com.online.shop.vo.ReplyListVO;
 
 
 @Service
@@ -60,8 +63,36 @@ public class AdminServiceImpl implements AdminService {
 	public void memberdelete(String uid) throws Exception {
 		dao.memberdelete(uid);
 	}
-	
-	
-	
+
+	@Override
+	public List<OrderVO> adminorderList() throws Exception {
+		return dao.adminorderList();
+	}
+
+	@Override
+	public List<OrderListVO> adminorderView(OrderVO order) throws Exception {
+		return dao.adminorderView(order);
+	}
+
+	@Override
+	public void delivery(OrderVO order) throws Exception {
+		dao.delivery(order);
+	}
+
+	@Override
+	public void changeStock(ProductVO goods) throws Exception {
+		dao.changeStock(goods);
+	}
+
+	@Override
+	public List<ReplyListVO> allReply() throws Exception {
+		return dao.allReply();
+	}
+
+	@Override
+	public void deleteReply(int reqNum) throws Exception {
+		dao.deleteReply(reqNum);
+	}
+
 	
 }

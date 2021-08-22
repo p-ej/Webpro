@@ -20,7 +20,14 @@
 
   <!-- Custom styles for this template -->
   <link href="resources/css/shop.css" rel="stylesheet">
-
+<style>
+.a_style {
+ color: white;
+ text-decoration: none;
+ transition: 1s;
+}
+.a_style:hover { text-shadow: 0 0 .1em, 0 0 .3em; }
+</style>
 </head>
 
 <body>
@@ -49,7 +56,16 @@
                   <a href="./productdetail?num=${list.SP_NUM}">${list.SP_NAME}</a>
                 </h4>
                 <h5><fmt:formatNumber value="${list.SP_PRICE}" pattern="###,###,###" /></h5>
+                <c:choose>
+                	<c:when test="${list.SP_STOCK != 0 }">
+                		<span style="background-color:blue;"><font color="white"><b><a class="a_style">&nbsp;재고있음&nbsp;</a></b></font></span>
+                	</c:when>
+                	<c:when test="${list.SP_STOCK == 0 }">
+                		<span style="background-color:red;"><font color="white"><b><a class="a_style">&nbsp;일시품절&nbsp;</a></b></font></span>
+                	</c:when>
+                </c:choose>
               </div>
+              
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
               </div>

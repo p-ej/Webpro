@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,8 @@ public class MemberController {
 	@Autowired
 	MemberService Service;
 
+	private final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	
 	////////////// 로그인, 회원가입 부분
 	// 로그인 화면
 	@RequestMapping(value="/loginView")
@@ -72,6 +76,7 @@ public class MemberController {
 	@RequestMapping("/join")
 	public String join(MemberVO vo) throws Exception{
 		Service.join(vo);
+		logger.info("member id :'{}'", vo.getS_ID());
 		return "redirect:/loginView";
 	}
 

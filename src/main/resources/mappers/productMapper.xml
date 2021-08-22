@@ -39,15 +39,15 @@ select
 	
 	<!-- 장바구니 담기 -->
 	<insert id="addCart" parameterType="com.online.shop.vo.CartVO" >
- 		insert into s_cart (S_CNUM, S_ID, SP_NUM, S_CSTOCK)
-     	values (s_cart_seq.nextval, #{S_ID}, ${SP_NUM}, ${S_CSTOCK})
+ 		insert into s_cart (S_CNUM, S_ID, SP_NUM, SP_STOCK)
+     	values (s_cart_seq.nextval, #{S_ID}, ${SP_NUM}, ${SP_STOCK})
 	</insert>
 
 	<!-- 카트 리스트 -->
 	<select id="cartList" parameterType="String" resultType="com.online.shop.vo.CartVO">
 	 select
 	     row_number() over(order by c.S_CNUM desc) as num,
-	     c.S_CNUM, c.S_ID, c.SP_NUM, c.S_CSTOCK, c.addDate,
+	     c.S_CNUM, c.S_ID, c.SP_NUM, c.SP_STOCK, c.addDate,
 	     g.SP_NAME, g.SP_PRICE, g.SP_THUMBIMG
 	 from s_cart c
 	     inner join SPRODUCT g
@@ -57,9 +57,73 @@ select
 	
 	<!-- 카트 삭제 -->
 	<delete id="deleteCart">
-	 delete s_cart
-	     where S_CNUM = #{S_CNUM}
-	         and S_ID = #{S_ID}
+	 	delete s_cart where S_CNUM = #{S_CNUM} and S_ID = #{S_ID}
 	</delete>
 	
+	<!-- 상품 소감 작성 -->
+	<insert id ="registReply" parameterType="com.online.shop.vo.ReplyVO">
+		insert into s_reply(SP_NUM, S_ID, S_reqNum, S_repCon) values(#{SP_NUM}, #{S_ID}, s_reply_seq.nextval, #{S_repCon})
+	</insert>
+	
+	<!-- 상품 소감 리스트 -->
+	<select id="replyList" parameterType="int" resultType="com.online.shop.vo.ReplyListVO">
+		select r.SP_NUM, r.S_ID, r.S_reqNum, r.S_repCon, r.S_repDate, m.S_NAME from s_reply r inner join SMEMBER m on r.S_ID = m.S_ID where SP_NUM=${param1}
+	</select>
+	
+	<!-- 상품 소감 삭제 -->
+	<delete id="deleteReply">
+		delete s_reply where S_reqNum = #{S_reqNum} and S_ID = #{S_ID}
+	</delete>
+	
+	<!-- 아이디 체크 -->
+	<select id="idCheck" parameterType="int" resultType="String">
+		select S_ID from s_reply where S_reqNum = ${param1}
+	</select>
+	
+	<!-- 상품 소감 수정 -->
+	<update id="modifyReply">
+		update s_reply 
+		set S_repCon = #{S_repCon} 
+		where S_reqNum = #{S_reqNum} and S_ID = #{S_ID}
+	</update>
+	
+	<!-- 주문 정보 입력 -->
+	<insert id="orderInfo">
+		insert into s_order(orderId, S_ID, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount) 
+		values(#{orderId},#{S_ID}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
+	</insert>
+	
+	<!-- 주문 상세 정보 -->
+	<insert id="orderInfo_Details">
+		insert into s_order_details(orderDetailNum, orderId, SP_NUM, SP_STOCK)
+		select s_order_details_seq.nextval, #{orderId}, SP_NUM, SP_STOCK
+		from S_CART
+	</insert>
+	
+	<!-- 카트 비우기 -->
+	<delete id="cartAllDelete">
+		delete s_cart where S_ID = #{S_ID}
+	</delete>
+	
+	<!-- 특정 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.online.shop.vo.OrderVO">
+	 select
+	     orderId, S_ID, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount, orderDate, delivery
+	 from s_order 
+	     where S_ID = #{S_ID}
+	</select>
+	
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.online.shop.vo.OrderListVO">
+		select
+		o.orderId, o.S_ID, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate, o.delivery,
+		d.ORDERDETAILNUM, d.SP_NUM, d.SP_STOCK,
+		g.SP_NUM, g.SP_THUMBIMG, g.SP_PRICE
+		from s_order o
+		inner join s_order_details d
+			on o.orderId = d.orderId
+		inner join SPRODUCT g
+			on d.SP_NUM = g.SP_NUM
+		where o.S_ID = #{S_ID} and o.orderId = #{orderId}
+	</select>
 </mapper>

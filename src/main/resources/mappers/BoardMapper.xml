@@ -74,7 +74,7 @@
 	            </otherwise>
 	        </choose>
 		</sql>
-	
+	<!-- 게시판 동적쿼리 (끝) -->
 	
 	<!-- 게시글 총 개수 구하기 -->
 	<select id="listcount" resultType="int">

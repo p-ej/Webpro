@@ -41,13 +41,13 @@
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img style="height:350px;" class="d-block img-fluid" src="https://image.msscdn.net/images/goods_img/20191231/1260427/1260427_1_500.jpg"  alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img style="height:350px;" class="d-block img-fluid" src="resources/images/8384433_1.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+              <img style="height:350px;" class="d-block img-fluid" src="resources/images/475888_1_500.jpg" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

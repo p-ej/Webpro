@@ -72,5 +72,48 @@
 		delete SMEMBER where S_ID= #{param1}
 	</delete>
 	
+	<!-- 모든 유저의 주문 목록 -->
+	<select id="adminorderList" resultType="com.online.shop.vo.OrderVO">
+		select orderId, S_ID, orderRec, userAddr1, userAddr2, 
+		userAddr3, orderPhon, amount, orderDate, delivery
+		from s_order
+	</select>
+	
+	<!-- 특정 주문 목록 -->
+	<select id="adminorderView" resultType="com.online.shop.vo.OrderListVO">
+		select
+		o.orderId, o.S_ID, o.orderRec,
+		o.userAddr1, o.userAddr2, o.userAddr3,
+		o.orderPhon, o.amount, o.orderDate, o.delivery,
+		d.orderDetailNum, d.SP_NUM, d.SP_STOCK,
+		g.SP_NAME, g.SP_THUMBIMG, g.SP_PRICE
+		from s_order o
+			inner join s_order_details d
+				on o.orderId = d.orderId
+			inner join SPRODUCT g
+				on d.SP_NUM = g.SP_NUM
+		where o.orderId = #{orderId}
+	</select>
+	
+	<!-- 배송 상태 -->
+	<update id="delivery">
+	 update s_order set delivery = #{delivery} where orderId = #{orderId}
+	</update>
+	
+	<!-- 상품 수량 조절 -->
+	<update id="changeStock">
+	 update SPRODUCT set SP_STOCK = SP_STOCK - #{SP_STOCK} where SP_NUM = #{SP_NUM}
+	</update>
+	
+	<!--  모든 소감(댓글) -->
+	<select id="allReply" resultType="com.online.shop.vo.ReplyListVO">
+	select r.SP_NUM, r.S_ID, r.S_reqNum, r.S_repCon, r.S_repDate, m.S_NAME 
+	from s_reply r inner join SMEMBER m on r.S_ID = m.S_ID
+	</select>
+	
+	<!-- 소감(댓글) 지우기 -->
+	<delete id="deleteReply" parameterType="int">
+		delete s_reply where S_reqNum = ${param1}
+	</delete>
 	
 </mapper>

@@ -26,7 +26,12 @@
 					<c:if test="${mid ne 'admin' }">
 						<li class="nav-item">
 							<a class="nav-link" href="./cartList">Cart</a>
-						</li>					
+						</li>	
+						<!-- 주문내역 시작 -->
+						<li>
+							<a class="nav-link" href="./orderList">주문내역</a>
+						</li>
+					<!-- 주문내역 끝 -->				
 					</c:if>					
 
 					<!-- 장바구니 끝 -->
@@ -61,11 +66,13 @@
 					</c:choose>
 					<!-- 로그인 or 비로그인 끝 -->
 					
-					<!-- 게시판 네브 -->
+					<!-- 게시판 네브 시작 -->
 					<li>
 						<a class="nav-link" href="./boardlist">게시판</a>
 					</li>
-					<!-- 게시판 네브 -->
+					<!-- 게시판 네브 끝 -->
+					
+					
 				</ul>
 		</div>
 		<!-- 네브바 우측 끝 -->

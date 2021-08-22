@@ -12,7 +12,7 @@ public class CartVO {
 	private int S_CNUM;
 	private String S_ID;
 	private int SP_NUM;
-	private int S_CSTOCK;
+	private int SP_STOCK;
 	private Date addDate;
 	
 	private int num;
